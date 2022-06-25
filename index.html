@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <title>Home | La mejor música para tus oidos</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="banner-principal-fox">
+            <div class="gridprincipal-fox">
+                <div class="item1-gridprincipal">
+                    <div class="imgfoxbel"> <img src="img/foxbel-music.png" alt=""></div>
+
+                    <div class="group-libreria">
+                        <div class="title-libreria"> <span>Mi Librería</span></div>
+                        <div class="item-libreria item-selec"><span>Recientes</span></div>
+                        <div class="item-libreria"><span>Artistas</span></div>
+                        <div class="item-libreria"><span>Albums</span></div>
+                        <div class="item-libreria"><span>Canciones</span></div>
+                        <div class="item-libreria"><span>Estaciones</span></div>
+
+
+
+
+
+                    </div>
+                    <div class="group-playist">
+                        <div class="title-libreria"> <span>Playlist</span></div>
+                        <div class="item-libreria"><span>Metal</span></div>
+                        <div class="item-libreria"><span>Para bailar</span></div>
+                        <div class="item-libreria"><span>Rock 90's</span></div>
+                        <div class="item-libreria"><span>Baladas</span></div>
+
+
+                    </div>
+
+                </div>
+                <div class="item2-gridprincipal">
+                    <div class="divuser"> 
+                        <div class="group-input" >
+                        <input class="input-buscar" v-on:input="getPlaylist($event.target.value)"
+                            type="text" name="" placeholder="Buscar" id="">
+                            <i class="fas fa-search lupa"></i>
+                        </div>
+                        <div class="user-div"> <i class="fas fa-user"></i> <span v-for="(lstuser, index) in listado_user"
+                                :key="index">{{lstuser.name}}</span></div>
+                    </div>
+                    <div class="card-actual">
+                        <div class="img-card-actual">
+                            <img :src="listado_seleccionado.artist.picture_xl" alt="">
+                        </div>
+                        <div class="cuerpo-card-actual">
+                            <div class="textartista"><span>{{listado_seleccionado.artist.name}}</span>
+                                <span>{{listado_seleccionado.album.title}}</span>
+                            </div>
+                            <div class="textsubartista"><span>Lo mejor de
+                                </span><span>{{listado_seleccionado.artist.name}}</span> <span
+                                    class="textseguidores">{{listado_seleccionado.rank}} seguidores</span></div>
+                            <div class="descripcion-artista">
+                                <span>Adele Laurie Blue Adkins (Tottenham, Londres, Inglaterra, 5 de mayo de 1988),
+                                    conocida simplemente como Adele, es una cantante, compositora y multinstrumentista
+                                    británica.8​
+                                </span>
+                            </div>
+                            <div class="group-botones">
+                                <div class="btnreproducir" :class="{activo: play, inactivo: !play}"  @click="Reproducir(listado_seleccionado.preview)" id="btnReproducir">
+                                    <span>Reproducir</span>
+                                </div>
+                                <div class="btnseguir"><span>Seguir</span></div>
+                                <div class="btnpuntos"><span>...</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="seccion-resultados">
+                        <div class="textresultados"> <span>Resultados</span></div>
+                        <div class="cuerpo-resultado">
+
+                            <div class="card-resultado" @click="Cancion(value, index)" v-for="(value, index) in listado_playlist"  :key="index">
+                                <div class="imgcard-resultado">
+                                    <img :src="value.artist.picture_xl" alt="">
+                                </div>
+                                <div class="textcard-resultado">
+                                    <span class="textcancion-card">{{ value.title }}</span> <br>
+                                    <span class="textartista-card">{{ value.artist.name }}</span>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="reproductor" class="gridReproductor nonerepro">
+
+                <img class="imgartistRep" :src="listado_seleccionado.artist.picture_xl" alt="">
+                <div class="gridcontrol">
+                    <div class="info-cancion">
+                        <div>
+                            <div><span>{{listado_seleccionado.title}}</span></div>
+                            <div><span>{{listado_seleccionado.artist.name}}</span> <span>{{listado_seleccionado.album.title}}</span></div>
+                        </div>
+                    </div>
+                    <div class="controlplay">
+
+                        <i class="fas fa-backward-step fa-3x" @click="ReproducirAnterior(listado_seleccionado)"></i>
+                        <i v-if="play" class="far fa-circle-play fa-3x" @click.prevent="playSound(), play=!play"
+                            id="iconPlay"></i>
+                        <i v-if="!play" class="far fa-circle-pause fa-3x" @click.prevent="pauseSound(), play=!play "
+                            id="iconPlay"></i>
+                        <i class="fas fa-forward-step fa-3x" @click="ReproducirSiguiente(listado_seleccionado)"></i>
+                    </div>
+                    <div class="volumencancion">
+                        <input type="range" class="input-range" v-on:input="volumen($event.target.value)" min="0"
+                            max="100" :value="20">
+                        </input>
+                        <i class="fa-solid fa-volume-low fa-3x"></i>
+                    </div>
+                </div>
+
+
+
+
+                <!-- <div @click.prevent="playSound(listado_seleccionado.preview)">ddddd</div> -->
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="js/main.js"></script>
+
+</html>
