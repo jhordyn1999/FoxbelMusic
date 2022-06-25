@@ -95,7 +95,7 @@ var app = new Vue({
                 return response.json();
               })
                 .then(response => {
-                    console.log(response);
+                   
                     this.listado_user = response})
             
                 
@@ -129,7 +129,7 @@ var app = new Vue({
                 return response.json();
               })
               .then(response => {
-                  console.log(response)
+              
                         this.listado_playlist = response.data;
                         this.listado_seleccionado = response.data[0];
     

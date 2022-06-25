@@ -42,10 +42,10 @@
 
                 </div>
                 <div class="item2-gridprincipal">
-                    <div class="divuser"> 
-                        <div class="group-input" >
-                        <input class="input-buscar" v-on:input="getPlaylist($event.target.value)"
-                            type="text" name="" placeholder="Buscar" id="">
+                    <div class="divuser">
+                        <div class="group-input">
+                            <input class="input-buscar" v-on:input="getPlaylist($event.target.value)" type="text"
+                                name="" placeholder="Buscar" id="">
                             <i class="fas fa-search lupa"></i>
                         </div>
                         <div class="user-div"> <i class="fas fa-user"></i> <span>{{listado_user.name}}</span></div>
@@ -68,7 +68,8 @@
                                 </span>
                             </div>
                             <div class="group-botones">
-                                <div class="btnreproducir" :class="{activo: play, inactivo: !play}"  @click="Reproducir(listado_seleccionado.preview)" id="btnReproducir">
+                                <div class="btnreproducir" :class="{activo: play, inactivo: !play}"
+                                    @click="Reproducir(listado_seleccionado.preview)" id="btnReproducir">
                                     <span>Reproducir</span>
                                 </div>
                                 <div class="btnseguir"><span>Seguir</span></div>
@@ -81,7 +82,8 @@
                         <div class="textresultados"> <span>Resultados</span></div>
                         <div class="cuerpo-resultado">
 
-                            <div class="card-resultado" @click="Cancion(value, index)" v-for="(value, index) in listado_playlist"  :key="index">
+                            <div class="card-resultado" @click="Cancion(value, index)"
+                                v-for="(value, index) in listado_playlist" :key="index">
                                 <div class="imgcard-resultado">
                                     <img :src="value.artist.picture_xl" alt="">
                                 </div>
@@ -105,7 +107,8 @@
                     <div class="info-cancion">
                         <div>
                             <div><span>{{listado_seleccionado.title}}</span></div>
-                            <div><span>{{listado_seleccionado.artist.name}}</span> <span>{{listado_seleccionado.album.title}}</span></div>
+                            <div><span>{{listado_seleccionado.artist.name}}</span>
+                                <span>{{listado_seleccionado.album.title}}</span></div>
                         </div>
                     </div>
                     <div class="controlplay">
